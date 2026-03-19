@@ -19,11 +19,11 @@ body.light{--black:#F0EDE6;--dark:#E8E3DC;--dark2:#EDE8E0;--dark3:#E0DAD0;--whit
 ::-webkit-scrollbar-thumb{background:var(--gold-dark);border-radius:3px;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.93);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,0.18);padding:0 1.5rem;height:65px;display:flex;align-items:center;gap:1rem;}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.93);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,0.18);padding:0 1.5rem;height:65px;display:flex;align-items:center;gap:1rem;direction:rtl;}
 body.light nav{background:rgba(240,237,230,0.95);}
 .logo{font-family:'Cinzel Decorative',cursive;font-size:1.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold-light),var(--gold),var(--gold-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;flex-shrink:0;}
 .logo span{display:block;font-family:'Cairo',sans-serif;font-size:0.55rem;font-weight:400;letter-spacing:3px;margin-top:-4px;}
-.nav-search{flex:1;max-width:340px;display:flex;}
+.nav-search{flex:1;max-width:300px;display:flex;}
 .nav-search input{flex:1;padding:7px 14px;background:var(--dark3);border:1px solid rgba(212,175,55,0.2);border-radius:5px 0 0 5px;color:var(--white);font-family:'Cairo';font-size:0.82rem;outline:none;}
 .nav-search input:focus{border-color:rgba(212,175,55,0.5);}
 .nav-search input::placeholder{color:var(--muted);}
@@ -31,7 +31,7 @@ body.light nav{background:rgba(240,237,230,0.95);}
 .nav-links{display:flex;gap:0.2rem;list-style:none;}
 .nav-links a{color:var(--muted);font-size:0.82rem;font-weight:600;cursor:pointer;padding:6px 10px;border-radius:5px;transition:all .25s;white-space:nowrap;}
 .nav-links a:hover{color:var(--gold);background:rgba(212,175,55,0.08);}
-.nav-right{display:flex;align-items:center;gap:0.6rem;margin-right:auto;}
+.nav-right{display:flex;align-items:center;gap:0.6rem;margin-left:auto;}
 .theme-btn{width:32px;height:32px;background:var(--dark3);border:1px solid rgba(212,175,55,0.2);border-radius:50%;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all .3s;}
 .theme-btn:hover{border-color:var(--gold);}
 .notif-btn{position:relative;width:32px;height:32px;background:var(--dark3);border:1px solid rgba(212,175,55,0.2);border-radius:50%;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all .3s;}
@@ -667,7 +667,7 @@ nav {
   }
   .nav-right {
     gap: 0.4rem !important;
-    margin-right: auto !important;
+    margin-left: auto !important;
     flex-shrink: 0 !important;
     align-items: center !important;
   }
@@ -716,9 +716,14 @@ nav {
   h1.hero-title {
     font-size: clamp(1.8rem, 8vw, 3rem) !important;
   }
+  .hero {
+    min-height: auto !important;
+    padding-top: 56px !important;
+  }
   .hero-inner {
-    padding: 1.5rem 1rem !important;
-    padding-top: 4rem !important;
+    padding: 1rem !important;
+    padding-top: 2rem !important;
+    min-height: calc(100vh - 56px) !important;
   }
   /* Stats bar */
   .stats-inner {
@@ -1289,7 +1294,7 @@ body::after {
     <div class="hero-text">
       <div class="hero-badge">★ MANGA · WEBTOON · COMICS</div>
       <h1 class="hero-title">عالم المانغا<br><span class="g">الذهبية</span></h1>
-      <p class="hero-sub">اكتشف آلاف القصص المصورة بلغات متعددة —<br>مانغا، ويب تون، كوميكس في مكان واحد.</p>
+      <p class="hero-sub">اكتشف آلاف القصص المصورة بلغات متعددة — مانغا، ويب تون، كوميكس في مكان واحد.</p>
       <div class="hero-cta">
         <button class="btn-gold" onclick="document.getElementById('contentSec').scrollIntoView({behavior:'smooth'})">ابدأ القراءة ▶</button>
         <button class="btn-outline" onclick="openCats()">استكشف الفئات</button>
@@ -2824,6 +2829,7 @@ document.querySelector('.nav-links').innerHTML=`
   const canvas = document.createElement('canvas');
   canvas.id = 'particles-canvas';
   canvas.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.6;';
+  if(window.innerWidth <= 768){canvas.style.display='none';return;}
   document.body.prepend(canvas);
 
   const ctx = canvas.getContext('2d');
@@ -3002,6 +3008,7 @@ if (sb) statsObs.observe(sb);
 (function typewriterEffect() {
   const sub = document.querySelector('.hero-sub');
   if (!sub) return;
+  if(window.innerWidth <= 768) return;
   const text = sub.innerHTML;
   sub.innerHTML = '';
   sub.style.opacity = '1';
